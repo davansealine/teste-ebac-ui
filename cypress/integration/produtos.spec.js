@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+const customCommands = require('../support/commands')
 
 describe('Funcionalidade Página de produtos', () => {
 
@@ -15,7 +16,7 @@ describe('Funcionalidade Página de produtos', () => {
             .click()
     });
 
-    it.only('Deve adicionar um produto ao carrinho', () => {
+    it('Deve adicionar um produto ao carrinho', () => {
         var quantidade = 2
 
         cy.get('[class="product-block grid"]')
@@ -28,5 +29,13 @@ describe('Funcionalidade Página de produtos', () => {
         cy.get('.dropdown-toggle > .mini-cart-items').should('contain', quantidade)
         cy.get('.woocommerce-message').should('contain', quantidade + ' × “Ajax Full-Zip Sweatshirt” foram adicionados no seu carrinho.')
 
+    });
+
+    it('Deve adicionar produtos ao carrinho - Usando comando customizado', () => {
+        cy.addProdutos('Ajax Full-Zip Sweatshirt', 'M', 'Red', 3)
+    });
+
+    it('Deve adicionar produtos ao carrinho - Usando comando customizado', () => {
+        cy.addProdutos('Abominable Hoodie', 'M', 'Blue', 10)
     });
 });
